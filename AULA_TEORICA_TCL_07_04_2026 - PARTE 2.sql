@@ -1,0 +1,133 @@
+
+-- ACESSANDO O BD
+USE DB_04017C_CEZAR_SILVA;
+
+-- DROP AS TABELAS CASO JA EXISTAM
+DROP TABLE IF EXISTS TB_ALUNOS_ESCOLA;
+DROP TABLE IF EXISTS TB_CURSOS_ESCOLA;
+
+-- CRIANDO A TABELA ALUNOS
+CREATE TABLE TB_ALUNOS_ESCOLA (
+	aluno_id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(100) NOT NULL,
+    sobrenome VARCHAR(100) NOT NULL,
+    email VARCHAR(150) UNIQUE,
+    data_nascimento DATE,
+    ativo BOOLEAN DEFAULT TRUE
+);
+
+-- CRIANDO A TABELA CURSOS
+CREATE TABLE TB_CURSOS_ESCOLA (
+	curso_id INT PRIMARY KEY AUTO_INCREMENT,
+    titulo  VARCHAR(200) NOT NULL,
+    descricao TEXT,
+    carga_horaria INT,
+    preco DECIMAL(10,2)
+);
+
+-- DETALHES DAS TABELAS CRIADAS
+SHOW TABLES;
+
+-- DETALHAMENTO DAS TABELAS
+DESCRIBE TB_ALUNOS_ESCOLA;
+DESCRIBE TB_CURSOS_ESCOLA;
+
+-- INSERT ALUNOS 
+INSERT INTO TB_ALUNOS_ESCOLA (nome, sobrenome, email, data_nascimento)
+VALUES ('Ana', 'Costa', 'ana.costa@email.com', '2000-01-10');
+
+INSERT INTO TB_ALUNOS_ESCOLA (nome, sobrenome, email, data_nascimento, ativo)
+VALUES ('Pedro', 'Lima', 'pedro.lima@email.com', '1998-03-22', FALSE);
+
+INSERT INTO TB_ALUNOS_ESCOLA (nome, sobrenome, email)
+VALUES ('Mariana', 'Souza', 'mariana.s@email.com');
+
+INSERT INTO TB_ALUNOS_ESCOLA (nome, sobrenome, email, data_nascimento)
+VALUES ('Carlos', 'Gomes', 'carlos.g@email.com', '2001-11-05');
+
+-- incluir informaçãoes tabela cursos
+INSERT INTO TB_CURSOS_ESCOLA (titulo, descricao, carga_horaria, preco)
+VALUES ('Introdução ao SQL', 'Curso básico de SQL para iniciantes.', 40, 299.90);
+
+INSERT INTO TB_CURSOS_ESCOLA (titulo, descricao, carga_horaria, preco)
+VALUES ('Desenvolvimento Web com Python', 'Aprenda a criar aplicações web com Python e Django.', 80, 599.90);
+
+INSERT INTO TB_CURSOS_ESCOLA (titulo, descricao, carga_horaria, preco)
+VALUES ('Banco de Dados Avançado', 'Tópicos avançados em otimização e modelagem.', 60, 450.00);
+
+
+-- CONSULTANDO AS TABELAS
+SELECT * FROM TB_ALUNOS_ESCOLA;
+SELECT * FROM TB_CURSOS_ESCOLA;
+
+-- UPDATE DA TABELA DE ALUNOS
+UPDATE TB_ALUNOS_ESCOLA
+SET email = 'pedro.novo.email@email.com'
+WHERE aluno_id = 2;
+
+
+-- SIMULANDO TRANSAÇÃO COM ERRO
+BEGIN;
+UPDATE TB_ALUNOS_ESCOLA
+SET ativo = FALSE
+WHERE aluno_id = 4;
+ROLLBACK;
+
+-- SIMULAR UMA TRANSACAO - TUDO OK
+BEGIN;
+UPDATE TB_ALUNOS_ESCOLA
+SET ativo = FALSE
+WHERE aluno_id = 4;
+COMMIT;
+
+-- CONFIRMANDO ASS INFORMAÇÕES NA TABELA
+SELECT * FROM TB_ALUNOS_ESCOLA;
+
+
+-- ATUALIZANDO TABELA DE CURSOS
+UPDATE TB_CURSOS_ESCOLA
+SET carga_horaria = 45,
+    preco = '320.00'
+WHERE curso_id = 1;
+
+-- confirmando o ajuste na tabela
+SELECT * FROM TB_CURSOS_ESCOLA;
+
+
+-- EXCLUINDO REGISTROS DA TABELA
+SELECT * FROM TB_ALUNOS_ESCOLA;
+
+
+-- SIMULANDO UMA TRANSAÇÃO - TUDO OK
+BEGIN;
+DELETE FROM TB_ALUNOS_ESCOLA
+WHERE aluno_id = 2;
+COMMIT;
+
+-- CONSULTANDO A TABELA APOS EXCLUSAO
+SELECT * FROM TB_ALUNOS_ESCOLA;
+
+-- ELIMINANDO OS ALUNOS ATIVOS
+BEGIN;
+DELETE FROM TB_ALUNOS_ESCOLA
+WHERE ativo = 1;
+COMMIT;
+
+-- CONSULTANDO A TABELA APOS EXCLUSAO
+SELECT * FROM TB_ALUNOS_ESCOLA;
+
+
+-- DELETANDO TODOS OS REGISTROS COM DELETE
+DELETE FROM TB_ALUNOS_ESCOLA;
+
+-- UTILIZANDO O COMANDO TRUNCATE TABLE - PARA ELIMINAR TODOS OS 
+-- REGISTROS DA TABELA ALUNOS
+TRUNCATE TABLE TB_ALUNOS_ESCOLA;
+
+
+
+
+
+
+
+
