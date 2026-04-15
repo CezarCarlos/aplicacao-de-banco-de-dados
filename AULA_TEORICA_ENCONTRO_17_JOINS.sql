@@ -35,7 +35,9 @@ INSERT INTO tb_faixa_score (faixa_id, score_min, score_max, risco) VALUES
 (3, 800, 999, 'Alto');
 
 
--- CONSULTANDO AS FAIXA
+-- CONSULTANDO AS TABELAS
+SELECT * FROM tb_clientes_score;
+SELECT * FROM tb_faixa_score;
 
 
 
