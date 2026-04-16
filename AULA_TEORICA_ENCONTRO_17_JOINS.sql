@@ -34,24 +34,10 @@ INSERT INTO tb_faixa_score (faixa_id, score_min, score_max, risco) VALUES
 (2, 600, 799, 'Médio'),
 (3, 800, 999, 'Alto');
 
+
 -- CONSULTANDO AS TABELAS
 SELECT * FROM tb_clientes_score;
 SELECT * FROM tb_faixa_score;
-
-
--- CONSULTA COM NO EQUIN JOIN
-SELECT C.nome as Cliente,
-	   C.score_credito,
-       F.risco
-FROM tb_clientes_score AS C
-JOIN tb_faixa_score AS F
-ON C.score_credito BETWEEN F.score_min AND F.score_max;
-
-
-
-
-
-
 
 
 
